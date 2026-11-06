@@ -9,6 +9,8 @@ namespace PaymentMfa
     {
         protected void Application_Start()
         {
+            // No revela la versión de MVC en las respuestas
+            MvcHandler.DisableMvcResponseHeader = true;
             // Exige sesión en toda la aplicación; lo público se marca con [AllowAnonymous]
             GlobalFilters.Filters.Add(new AuthorizeAttribute());
             // Sin esta línea, los formularios con antiforgery fallan al usar estos claims

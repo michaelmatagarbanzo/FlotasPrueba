@@ -2,7 +2,7 @@
 
 Aplicación ASP.NET MVC 5 sobre .NET Framework 4.8 con login por Microsoft Entra External ID. Es el resultado de seguir `GUIA-DESARROLLO-APP.md`, y sirve para **comparar** cuando algo no funcione. Para aprender, construye tu propio proyecto con la guía y consulta este solo como referencia.
 
-**Estado:** compila contra .NET Framework 4.8, y sus paquetes no tienen vulnerabilidades conocidas. Aún no se ha abierto en Visual Studio ni se ha ejecutado en IIS o contra Entra.
+**Estado:** compila contra .NET Framework 4.8, y sus paquetes no tienen vulnerabilidades conocidas. Ya corre en Visual Studio y en Azure, pero el login y el MFA aún no se han probado contra Entra.
 
 ## Requisitos
 

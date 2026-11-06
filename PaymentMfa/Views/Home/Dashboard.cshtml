@@ -1,0 +1,60 @@
+@model PaymentMfa.Models.DashboardModelo
+
+<header class="encabezado">
+    <div>
+        <p class="etiqueta">Flotas</p>
+        <h1>Bienvenido a Flota</h1>
+        <p class="detalle">Hola, <strong>@Model.Nombre</strong>. Acceso protegido con Microsoft Entra External ID.</p>
+    </div>
+    <form method="post" action="~/Cuenta/Salir">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="boton secundario">Cerrar sesión</button>
+    </form>
+</header>
+
+<div class="rejilla">
+    <section class="tarjeta">
+        <h2>Verificaciones de la sesión</h2>
+        <ul class="lista">
+            @foreach (var verificacion in Model.Verificaciones)
+            {
+                <li>
+                    <span class="badge @verificacion.Estado">@verificacion.Etiqueta</span>
+                    <div>
+                        <div>@verificacion.Nombre</div>
+                        <div class="detalle">@verificacion.Detalle</div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </section>
+
+    <section class="tarjeta">
+        <h2>Datos de la sesión</h2>
+        <dl class="datos">
+            <dt>Usuario</dt>
+            <dd>@Model.Usuario</dd>
+            <dt>Métodos (amr)</dt>
+            <dd>@Model.Metodos</dd>
+            <dt>Inicio de sesión</dt>
+            <dd>@Model.InicioSesion</dd>
+            <dt>Sesión expira</dt>
+            <dd>@Model.SesionExpira</dd>
+            <dt>ID de usuario</dt>
+            <dd><code>@Model.Oid</code></dd>
+        </dl>
+    </section>
+</div>
+
+<section class="tarjeta">
+    <details>
+        <summary>Claims del ID token (@Model.Claims.Count)</summary>
+        <dl class="datos">
+            @foreach (var claim in Model.Claims)
+            {
+                <dt><code>@claim.Tipo</code></dt>
+                <dd>@claim.Valor</dd>
+            }
+        </dl>
+    </details>
+</section>

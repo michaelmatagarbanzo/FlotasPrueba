@@ -9,8 +9,8 @@ namespace PaymentMfa.Controllers
     [AllowAnonymous]
     public class CuentaController : Controller
     {
-        public void Entrar(string returnUrl = "/Home/Privado") => Retar("login", returnUrl);
-        public void Registrarse() => Retar("create", "/Home/Privado");
+        public void Entrar(string returnUrl = "/Home/Dashboard") => Retar("login", returnUrl);
+        public void Registrarse() => Retar("create", "/Home/Dashboard");
 
         private void Retar(string prompt, string returnUrl)
         {

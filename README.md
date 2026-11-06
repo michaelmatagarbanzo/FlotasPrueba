@@ -21,7 +21,7 @@ Si al abrir la solución aparece *Unsupported* junto a `PaymentMfa.csproj`, norm
 
 Sin crear `secretos.config`, abre `PaymentMfa.sln`, restaura los paquetes y presiona **F5**. Debe abrir `https://localhost:44380/` con la etiqueta **Flotas** y el aviso de que el inicio de sesión aún no está activo.
 
-Esto solo comprueba que la aplicación corre. Sin Entra no hay login ni MFA, y `/Home/Privado` responde 401.
+Esto solo comprueba que la aplicación corre. Sin Entra no hay login ni MFA, y `/Home/Dashboard` responde 401.
 
 ## Ejecutar
 
@@ -39,7 +39,7 @@ Las pruebas y la solución de errores están en las secciones 8 y "Si algo falla
 | `App_Start/Startup.cs` | Configura la cookie de sesión y el login con Entra |
 | `Global.asax.cs` | Exige sesión en toda la aplicación |
 | `Controllers/CuentaController.cs` | Entrar, registrarse y salir |
-| `Controllers/HomeController.cs` | Página pública y página privada, que muestra los claims |
+| `Controllers/HomeController.cs` | Página pública y dashboard, que muestra las verificaciones y los claims |
 | `Web.config` | Encabezados de seguridad, cookies y redirecciones de ensamblados |
 
-La página privada muestra los claims solo porque esto es un ejemplo. No lo hagas en producción.
+El dashboard muestra los claims solo porque esto es un ejemplo. No lo hagas en producción.

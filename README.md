@@ -17,6 +17,12 @@ Si al abrir la solución aparece *Unsupported* junto a `PaymentMfa.csproj`, norm
 & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -products * -requires Microsoft.VisualStudio.Workload.NetWeb -property displayName
 ```
 
+## Probar sin Entra
+
+Sin crear `secretos.config`, abre `PaymentMfa.sln`, restaura los paquetes y presiona **F5**. Debe abrir `https://localhost:44380/` con la etiqueta **Flotas** y el aviso de que el inicio de sesión aún no está activo.
+
+Esto solo comprueba que la aplicación corre. Sin Entra no hay login ni MFA, y `/Home/Privado` responde 401.
+
 ## Ejecutar
 
 1. Abre `PaymentMfa.sln`. Si no se descargan los paquetes, usa **clic derecho en la solución → Restore NuGet Packages**.

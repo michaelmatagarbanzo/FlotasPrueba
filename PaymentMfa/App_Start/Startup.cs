@@ -1,6 +1,7 @@
 using System;
 using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
@@ -17,10 +18,19 @@ namespace PaymentMfa
 {
     public class Startup
     {
+        private static readonly string[] ClavesEntra =
+        {
+            "Entra:Subdominio", "Entra:TenantId", "Entra:ClientId",
+            "Entra:ClientSecret", "Entra:RedirectUri", "Entra:PostLogoutRedirectUri"
+        };
+
+        // False solo si los seis valores están vacíos. Si falta una parte, el arranque falla en Requerido.
+        public static bool EntraConfigurada { get; private set; }
+
         public void Configuration(IAppBuilder app)
         {
-            var tenantId = Requerido("Entra:TenantId");
-            var subdominio = Requerido("Entra:Subdominio");
+            EntraConfigurada = ClavesEntra.Any(
+                clave => !string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings[clave]));
 
             // Conserva los nombres originales de los claims: "oid", "name", "sub"
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
@@ -38,6 +48,16 @@ namespace PaymentMfa
                 // Evita que IIS pierda cookies de OWIN
                 CookieManager = new SystemWebCookieManager()
             });
+
+            if (!EntraConfigurada)
+            {
+                // Sin login nadie obtiene sesión, así que las páginas privadas siguen bloqueadas.
+                System.Diagnostics.Trace.TraceWarning("Entra no está configurado: la aplicación arranca sin inicio de sesión.");
+                return;
+            }
+
+            var tenantId = Requerido("Entra:TenantId");
+            var subdominio = Requerido("Entra:Subdominio");
 
             app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
             {

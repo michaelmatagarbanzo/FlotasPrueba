@@ -18,6 +18,7 @@ namespace PaymentMfa
 {
     public class Startup
     {
+        //hola
         private static readonly string[] ClavesEntra =
         {
             "Entra:Subdominio", "Entra:TenantId", "Entra:ClientId",

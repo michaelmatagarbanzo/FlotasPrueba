@@ -3,7 +3,7 @@
 <header class="encabezado">
     <div>
         <p class="etiqueta">Flotas</p>
-        <h1>Bienvenido a Flota</h1>
+        <h1>Bienvenido a Flotas</h1>
         <p class="detalle">Hola, <strong>@Model.Nombre</strong>. Acceso protegido con Microsoft Entra External ID.</p>
     </div>
     <form method="post" action="~/Cuenta/Salir">
@@ -11,6 +11,24 @@
         <button type="submit" class="boton secundario">Cerrar sesión</button>
     </form>
 </header>
+
+@if (Model.Grupos.Count > 0)
+{
+    <section class="grupos hay-grupos">
+        <strong>Groups</strong>
+        @foreach (var grupo in Model.Grupos)
+        {
+            <code class="grupo">@grupo</code>
+        }
+    </section>
+}
+else
+{
+    <section class="grupos">
+        <strong>Groups</strong>
+        <span class="detalle">No viene en el token</span>
+    </section>
+}
 
 <div class="rejilla">
     <section class="tarjeta">
@@ -52,8 +70,8 @@
         <dl class="datos">
             @foreach (var claim in Model.Claims)
             {
-                <dt><code>@claim.Tipo</code></dt>
-                <dd>@claim.Valor</dd>
+                <dt class="@claim.Clase"><code>@claim.Tipo</code></dt>
+                <dd class="@claim.Clase">@claim.Valor</dd>
             }
         </dl>
     </details>

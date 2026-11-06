@@ -22,6 +22,10 @@ dd { margin: 0; }
 .badge.si { background: #1a7f37; }
 .badge.no { background: #b42318; }
 .badge.info { background: #6d4aff; }
+.grupos { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 16px; padding: 12px 16px; border: 1px solid #8886; border-radius: 8px; }
+.grupos.hay-grupos { border: 2px solid #b54708; background: #fef0c7; color: #1f1400; }
+.grupo { padding: 2px 8px; border-radius: 6px; background: #b54708; color: #fff; font-weight: 600; }
+.datos .resaltado { background: #fef0c7; color: #1f1400; font-weight: 600; }
 .datos { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 16px; margin: 12px 0 0; font-size: 14px; }
 .datos dt { margin: 0; }
 .datos dd { overflow-wrap: anywhere; }

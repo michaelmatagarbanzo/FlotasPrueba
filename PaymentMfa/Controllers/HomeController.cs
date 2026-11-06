@@ -45,6 +45,7 @@ namespace PaymentMfa.Controllers
                 Metodos = metodos.Any()
                     ? string.Join(", ", metodos)
                     : "El token no los informa",
+                Grupos = usuario.Claims.Where(c => EsClaimDeGrupos(c.Type)).Select(c => c.Value).ToList(),
                 Verificaciones = new List<Verificacion>
                 {
                     Comprobar("Sesión iniciada en Entra", nombreUsuario ?? SinDato, usuario.Identity.IsAuthenticated),
@@ -60,7 +61,8 @@ namespace PaymentMfa.Controllers
                     .Select(c => new DatoClaim
                     {
                         Tipo = c.Type,
-                        Valor = ClaimsDeFecha.Contains(c.Type) ? FormatearFecha(c.Value) : c.Value
+                        Valor = ClaimsDeFecha.Contains(c.Type) ? FormatearFecha(c.Value) : c.Value,
+                        Clase = EsClaimDeGrupos(c.Type) ? "resaltado" : null
                     })
                     .ToList()
             });
@@ -99,6 +101,11 @@ namespace PaymentMfa.Controllers
                 Estado = ok ? "si" : "no",
                 Etiqueta = ok ? "Pasa" : "Falla"
             };
+        }
+
+        private static bool EsClaimDeGrupos(string tipo)
+        {
+            return string.Equals(tipo, "groups", StringComparison.OrdinalIgnoreCase);
         }
 
         private static string Valor(ClaimsPrincipal usuario, string tipo)

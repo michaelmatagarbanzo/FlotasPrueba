@@ -10,6 +10,7 @@ namespace PaymentMfa.Models
         public string InicioSesion { get; set; }
         public string SesionExpira { get; set; }
         public string Metodos { get; set; }
+        public List<string> Grupos { get; set; }
         public List<Verificacion> Verificaciones { get; set; }
         public List<DatoClaim> Claims { get; set; }
     }
@@ -27,5 +28,7 @@ namespace PaymentMfa.Models
     {
         public string Tipo { get; set; }
         public string Valor { get; set; }
+        // Clase CSS de la fila; null si no se resalta
+        public string Clase { get; set; }
     }
 }

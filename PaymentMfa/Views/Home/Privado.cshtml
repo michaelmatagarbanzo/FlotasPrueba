@@ -1,0 +1,23 @@
+<h1>Página privada</h1>
+<p>Hola, <strong>@ViewBag.Nombre</strong>. Entraste con sesión de Entra.</p>
+<dl>
+    <dt>oid (identificador del usuario)</dt>
+    <dd><code>@ViewBag.Oid</code></dd>
+    <dt>tid (tenant)</dt>
+    <dd><code>@ViewBag.Tid</code></dd>
+    <dt>amr (métodos de autenticación)</dt>
+    <dd><code>@ViewBag.Amr</code></dd>
+    <dt>La sesión expira</dt>
+    <dd><code>@ViewBag.Expira</code></dd>
+</dl>
+<form method="post" action="~/Cuenta/Salir">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="boton">Cerrar sesión</button>
+</form>
+<h2>Claims recibidos</h2>
+<ul>
+    @foreach (var claim in ViewBag.Claims)
+    {
+        <li><code>@claim</code></li>
+    }
+</ul>

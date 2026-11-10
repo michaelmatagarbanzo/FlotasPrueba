@@ -16,6 +16,10 @@ namespace PaymentMfa.Controllers
         private const string SinDato = "—";
         private static readonly string[] ClaimsDeFecha = { "exp", "iat", "nbf", "auth_time" };
 
+        // Claim con los permisos del usuario. Lo emite la custom claims policy de Entra
+        // (Atributos y notificaciones) a partir del atributo personalizado PermisosFlotas.
+        private const string ClaimPermisos = "permisos";
+
         [AllowAnonymous]
         public ActionResult Index() => View();
 
@@ -46,6 +50,7 @@ namespace PaymentMfa.Controllers
                     ? string.Join(", ", metodos)
                     : "El token no los informa",
                 Grupos = usuario.Claims.Where(c => EsClaimDeGrupos(c.Type)).Select(c => c.Value).ToList(),
+                Permisos = Valor(usuario, ClaimPermisos),
                 Verificaciones = new List<Verificacion>
                 {
                     Comprobar("Sesión iniciada en Entra", nombreUsuario ?? SinDato, usuario.Identity.IsAuthenticated),
@@ -62,7 +67,7 @@ namespace PaymentMfa.Controllers
                     {
                         Tipo = c.Type,
                         Valor = ClaimsDeFecha.Contains(c.Type) ? FormatearFecha(c.Value) : c.Value,
-                        Clase = EsClaimDeGrupos(c.Type) ? "resaltado" : null
+                        Clase = EsClaimDeGrupos(c.Type) || c.Type == ClaimPermisos ? "resaltado" : null
                     })
                     .ToList()
             });

@@ -30,6 +30,21 @@ else
     </section>
 }
 
+@if (!string.IsNullOrEmpty(Model.Permisos))
+{
+    <section class="grupos hay-grupos">
+        <strong>Permisos</strong>
+        <code class="grupo">@Model.Permisos</code>
+    </section>
+}
+else
+{
+    <section class="grupos">
+        <strong>Permisos</strong>
+        <span class="detalle">No viene en el token</span>
+    </section>
+}
+
 <div class="rejilla">
     <section class="tarjeta">
         <h2>Verificaciones de la sesión</h2>

@@ -11,6 +11,8 @@ namespace PaymentMfa.Models
         public string SesionExpira { get; set; }
         public string Metodos { get; set; }
         public List<string> Grupos { get; set; }
+        // Valor del claim "permisos"; null si no viene en el token
+        public string Permisos { get; set; }
         public List<Verificacion> Verificaciones { get; set; }
         public List<DatoClaim> Claims { get; set; }
     }

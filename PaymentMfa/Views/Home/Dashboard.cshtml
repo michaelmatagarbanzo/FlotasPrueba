@@ -39,9 +39,11 @@ else
 }
 else
 {
-    <section class="grupos">
+    @* Por ahora se deja entrar sin permisos; en producción este usuario debe quedar bloqueado *@
+    <section class="grupos sin-permisos" role="alert">
         <strong>Permisos</strong>
-        <span class="detalle">No viene en el token</span>
+        <span class="etiqueta-alerta">Sin permisos</span>
+        <span>Este usuario no tiene un Id de permisos asociado. En producción no podrá ingresar sin permisos.</span>
     </section>
 }
 
